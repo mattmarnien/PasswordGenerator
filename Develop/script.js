@@ -5,6 +5,7 @@ var lowerCheck = document.querySelector("#lowerCheck");
 var upperCheck = document.querySelector("#upperCheck");
 var numCheck = document.querySelector("#numCheck");
 var specialCheck = document.querySelector("#specialCheck");
+var lengthForm = document.querySelector('#lengthForm');
 
 // Arrays from which the password will be pulled
 var lowerArr = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
@@ -15,48 +16,46 @@ var passwordArr = [];
 
 // Write password to the #password input
 function writePassword() {
-var passLength = prompt("Enter the desired length of your password. (Between 8 and 128 characters)");
+var passLength = lengthForm.value;
+console.log(passLength);
 while(passLength < 8 || passLength > 128) {
   alert("Password length must be a number between 8 and 128 characters.");
   passLength = prompt("Enter the desired length of your password. (Between 8 and 128 characters)");
 }
 
-useLower = lowerCheck.
+// checked user input for selected items
+useLower = lowerCheck.checked;
+useUpper = upperCheck.checked;
+useNum = numCheck.checked;
+useSpecial = specialCheck.checked;
 
-// var useLower = confirm("Do you want your password to include lower case letters?");
-
-// var useUpper = confirm("Do you want your password to include upper case letters?");
-// var useNum = confirm("Do you want your password to include numbers?");
-// var useSpecial =confirm("Do you want your password to include special characters?");
-// while(useLower == false && useUpper == false && useNum == false && useSpecial == false)
+// Requires user to select some elements for password
+if(useLower == false && useUpper == false && useNum == false && useSpecial == false){
+  alert("Please select at least one of lower case letters, upper case letter, numbers, and special characters.");
+  return;
+}
 
 
 // Establishes array password is made from
 
 if(useLower){
   passwordArr = passwordArr.concat(lowerArr);
-  console.log(passwordArr);
 }
 if(useUpper){
   passwordArr = passwordArr.concat(upperArr);
-  console.log(passwordArr);
 }
 if(useNum){
   passwordArr = passwordArr.concat(numArr);
-  console.log(passwordArr);
 }
 if(useSpecial){
   passwordArr = passwordArr.concat(specialArr);
-  console.log(passwordArr);
 }
 
 if(useLower == false && useUpper == false && useNum == false && useSpecial == false) {
   alert("Password must include at least one of lower case letters, upper case letters, numbers, or special characters");
 }
- console.log(passwordArr);
 
-  // Math.floor(Math.random*passwordArr.length)
-
+// generates a random password from selected Array
   var password = "";
 
   for(var i=0; i < passLength; i++){
@@ -66,30 +65,10 @@ if(useLower == false && useUpper == false && useNum == false && useSpecial == fa
     password = password + x;
     console.log(password);
   }
-  // var password = writePassword(passwordArr, passLength);
-  // console.log(password);
 
   passText.textContent = password;
   passwordArr =[];
 }
-
-  
-
-
-
-
-//   var pass = "";
-//   for(var i; i <= passwordArr.length; i++){
-//     console.log(pass);
-//     var x = arr[Math.floor(Math.random*arr.length)];
-//     console.log(x);
-//     pass = pass + x;
-//     console.log(pass);
-    
-//   }
-//   return pass;
-
-// }
 
 // Add event listener to generate button
  generateBtn.addEventListener("click", writePassword);
