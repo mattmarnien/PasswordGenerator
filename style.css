@@ -42,6 +42,7 @@ header {
   padding: 30px 40px;
 }
 
+
 .card-header::after {
   content: " ";
   display: block;
@@ -117,7 +118,11 @@ button[disabled] {
   resize: none;
   overflow: hidden;
 }
-
+#alertText {
+  font-size: 16px;
+  font-style: bold;
+  color: red;
+}
 @media (max-width: 690px) {
   .btn {
     font-size: 1rem;
@@ -126,6 +131,10 @@ button[disabled] {
   }
 
   #password {
+    font-size: 0.75rem;
+  }
+
+  .inputForm {
     font-size: 1rem;
   }
 }
@@ -133,5 +142,8 @@ button[disabled] {
 @media (max-width: 500px) {
   .btn {
     font-size: 0.8rem;
+  }
+  .inputForm {
+    font-size: 0.7rem;
   }
 }
