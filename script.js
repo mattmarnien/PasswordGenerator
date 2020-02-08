@@ -37,7 +37,8 @@ function writePassword() {
     return;
   }
 
-
+  // Clears alert text if any issues existed previously
+  alertText.textContent = "";
   // Establishes array password is made from
 
   if (useLower) {
