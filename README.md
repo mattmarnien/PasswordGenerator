@@ -13,6 +13,6 @@ Desktop Screenshots
 
 Mobile Screenshots
 
-![Image of Password Gen - Mobile](Images/PassGenMobile.JPG)
+![Image of Password Gen - Mobile](Images/PassGenMobile.png)
 
 
