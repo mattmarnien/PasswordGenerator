@@ -131,19 +131,19 @@ button[disabled] {
   }
 
   #password {
-    font-size: 0.75rem;
+    font-size: 1rem;
   }
 
   .inputForm {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 }
 
 @media (max-width: 500px) {
   .btn {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
   .inputForm {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
   }
 }
