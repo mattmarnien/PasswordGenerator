@@ -7,13 +7,38 @@ var numCheck = document.querySelector("#numCheck");
 var specialCheck = document.querySelector("#specialCheck");
 var lengthForm = document.querySelector('#lengthForm');
 var alertText = document.querySelector("#alertText");
+var inputForm = document.querySelector(".inputForm");
+var test = false;
+var password = "";
 
 // Arrays from which the password will be pulled
 var lowerArr = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 var upperArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-var numArr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0','1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+var numArr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 var specialArr = [' ', '!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', '-', '=', '_', ',', '.', ':', ';', '@', '[', ']', '/', '^', '`', '|', '{', '}'];
 var passwordArr = [];
+
+function passTest(use, arr) {
+  if (use) {
+    var x = password.toString();
+
+    for (let i = 0; i < arr.length; i++) {
+      if (x.indexOf(arr[i]) !== -1) {
+        break;
+      }
+      else if (x.indexOf(arr[i]) === -1 && i == (arr.length - 1)) {
+        console.log(password);
+        console.log("rewriting")
+        writePassword();
+      }
+    }
+  }
+  else {
+    return;
+  }
+
+}
+
 
 // Write password to the #password input
 function writePassword() {
@@ -59,12 +84,17 @@ function writePassword() {
   }
 
   // generates a random password from selected Array
-  var password = "";
+  password = "";
 
   for (var i = 0; i < passLength; i++) {
     var x = passwordArr[(Math.floor(Math.random() * passwordArr.length))];
-    password = password + x;
+    password += x;
   }
+
+  passTest(useLower, lowerArr);
+  passTest(useUpper, upperArr);
+  passTest(useNum, numArr);
+  passTest(useSpecial, specialArr);
 
   passText.textContent = password;
   passwordArr = [];
@@ -73,6 +103,15 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
+inputForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+  writePassword();
+})
+
+lengthForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+  writePassword();
+})
 
 
 
