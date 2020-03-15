@@ -8,7 +8,6 @@ const specialCheck = document.querySelector("#specialCheck");
 const lengthForm = document.querySelector('#lengthForm');
 const alertText = document.querySelector("#alertText");
 const inputForm = document.querySelector(".inputForm");
-var test = false;
 var password = "";
 
 // Arrays from which the password will be pulled
@@ -37,13 +36,13 @@ function passTest(use, arr) {
   else {
     return;
   }
-
 }
+
+// function to remove specified characters from an array
 function arrIncludes(arr, x) {
   if(arr.indexOf(x) !== -1){
     arr.splice(arr.indexOf(x), 1);
-    arrIncludes(arr,x); 
-       
+    arrIncludes(arr,x);        
   }
   else{
     return;
