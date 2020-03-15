@@ -1,26 +1,27 @@
 // Assignment Code
-var generateBtn = document.querySelector("#generate");
-var passText = document.querySelector("#password");
-var lowerCheck = document.querySelector("#lowerCheck");
-var upperCheck = document.querySelector("#upperCheck");
-var numCheck = document.querySelector("#numCheck");
-var specialCheck = document.querySelector("#specialCheck");
-var lengthForm = document.querySelector('#lengthForm');
-var alertText = document.querySelector("#alertText");
-var inputForm = document.querySelector(".inputForm");
+const generateBtn = document.querySelector("#generate");
+const passText = document.querySelector("#password");
+const lowerCheck = document.querySelector("#lowerCheck");
+const upperCheck = document.querySelector("#upperCheck");
+const numCheck = document.querySelector("#numCheck");
+const specialCheck = document.querySelector("#specialCheck");
+const lengthForm = document.querySelector('#lengthForm');
+const alertText = document.querySelector("#alertText");
+const inputForm = document.querySelector(".inputForm");
 var test = false;
 var password = "";
 
 // Arrays from which the password will be pulled
-var lowerArr = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-var upperArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-var numArr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-var specialArr = [' ', '!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', '-', '=', '_', ',', '.', ':', ';', '@', '[', ']', '/', '^', '`', '|', '{', '}'];
-var passwordArr = [];
+const lowerArr = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+const upperArr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+const numArr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+const specialArr = ['!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', '-', '=', '_', ',', '.', ':', ';', '@', '[', ']', '/', '^', '`', '|', '{', '}'];
+const specialUseArr =[];
+let passwordArr = [];
 
 function passTest(use, arr) {
   if (use) {
-    var x = password.toString();
+    let x = password.toString();
 
     for (let i = 0; i < arr.length; i++) {
       if (x.indexOf(arr[i]) !== -1) {
@@ -38,6 +39,41 @@ function passTest(use, arr) {
   }
 
 }
+function arrIncludes(arr, x) {
+  if(arr.indexOf(x) !== -1){
+    arr.splice(arr.indexOf(x), 1);
+    arrIncludes(arr,x); 
+       
+  }
+  else{
+    return;
+  }
+}
+
+for(let i = 0; i <specialArr.length; i++){
+  let newCheck = $(`<input id='${specialArr[i]}Check' type='checkbox' name='${specialArr[i]}' class= 'specialChecks col-3' data-id='${specialArr[i]}'>`)
+  let newLabel = $(`<label for='${specialArr[i]}' class='col-3'>`)
+  let newBr = $("<br>");
+      newLabel.text(specialArr[i]);
+      $("#specialDisplayDiv").append(newCheck, newLabel, newBr); 
+}
+
+// const specialChecks = document.querySelector("#specialCehcks")
+
+$(".specialChecks").on( 'change', function(event) {
+  event.preventDefault();
+  let thisSpecial = $(this).data('id');
+  console.log(thisSpecial);
+  if(this.checked) {
+      specialUseArr.push(thisSpecial)
+      console.log(specialUseArr);
+  } else {
+     arrIncludes(specialUseArr, thisSpecial);
+     console.log(specialUseArr);
+  }
+});
+
+
 
 
 // Write password to the #password input
@@ -54,7 +90,7 @@ function writePassword() {
   useLower = lowerCheck.checked;
   useUpper = upperCheck.checked;
   useNum = numCheck.checked;
-  useSpecial = specialCheck.checked;
+  useSpecial = specialUseArr.length;
 
   // Requires user to select some elements for password
   if (useLower == false && useUpper == false && useNum == false && useSpecial == false) {
@@ -76,7 +112,7 @@ function writePassword() {
     passwordArr = passwordArr.concat(numArr);
   }
   if (useSpecial) {
-    passwordArr = passwordArr.concat(specialArr);
+   passwordArr = passwordArr.concat(specialUseArr);
   }
 
   if (useLower == false && useUpper == false && useNum == false && useSpecial == false) {
@@ -94,7 +130,7 @@ function writePassword() {
   passTest(useLower, lowerArr);
   passTest(useUpper, upperArr);
   passTest(useNum, numArr);
-  passTest(useSpecial, specialArr);
+  passTest(useSpecial, specialUseArr);
 
   passText.textContent = password;
   passwordArr = [];
@@ -109,10 +145,14 @@ inputForm.addEventListener("submit", function (event) {
 })
 
 lengthForm.addEventListener("submit", function (event) {
-  event.preventDefault();
+ 
   writePassword();
 })
 
+$('#inputForm').on('show.bs.modal', function (event) {
+  event.preventDefault();
+
+})
 
 
 
